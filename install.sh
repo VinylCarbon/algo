@@ -12,6 +12,7 @@ LOCAL_DNS="${7:-${LOCAL_DNS:-false}}"
 SSH_TUNNELING="${8:-${SSH_TUNNELING:-false}}"
 ENDPOINT="${9:-${ENDPOINT:-localhost}}"
 USERS="${10:-${USERS:-user1}}"
+EXTRA_VARS="${11:-${EXTRA_VARS:-placeholder=null}}"
 
 cd /opt/
 
@@ -95,6 +96,7 @@ deployAlgo() {
     -e users=$(echo "$USERS" | jq -Rc 'split(",")') \
     -e server=localhost \
     -e ssh_user=root \
+    -e "${EXTRA_VARS}" \
     --skip-tags debug |
       tee /var/log/algo.log
 }
